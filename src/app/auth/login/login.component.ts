@@ -9,6 +9,7 @@ import {noop} from "rxjs";
 import {Router} from "@angular/router";
 import { AppState } from '../../reducers';
 import { login } from '../auth.actions';
+import { AuthActions } from '../action-types';
 
 @Component({
   selector: 'login',
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(
       private fb:FormBuilder,
       private auth: AuthService,
-      private router:Router
+      private router:Router,
       private store: Store<AppState>
       ) {
 
@@ -41,7 +42,7 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.form.value.email, this.form.value.password).pipe(
       tap(user =>{
          console.log(user);
-         this.store.dispatch(login({user}))
+         this.store.dispatch(AuthActions.login({user}))
          this.router.navigateByUrl('/courses')
       })
     ).subscribe({
