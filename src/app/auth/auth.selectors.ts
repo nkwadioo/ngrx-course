@@ -1,8 +1,11 @@
-import { createSelector } from "@ngrx/store";
+import { createFeatureSelector, createSelector } from "@ngrx/store";
+import { AuthState } from './reducers'
+
+export const selectAuthState = createFeatureSelector<AuthState>('auth');
 
 
 export const isLoggedIn = createSelector( // momoized function,
-  state => state['auth'], // slice of state
+  selectAuthState, // slice of state
   (auth) => !!auth.user// projection function
 )
 
